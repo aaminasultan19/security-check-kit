@@ -9,14 +9,15 @@ Usage:
 
 import argparse
 
-from checks import idor_basket, broken_auth , rate_limit ,security_headers
+from checks import idor_basket, broken_auth , rate_limit ,security_headers ,mass_assignment
 
 
 CHECKS = [
     idor_basket.run_check,
     broken_auth.run_check,
     rate_limit.run_check,
-    security_headers.run_check
+    security_headers.run_check,
+    mass_assignment.run_check
 ]
 
 

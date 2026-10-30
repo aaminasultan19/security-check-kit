@@ -15,7 +15,7 @@ as you want.
 
 ## What it checks
 
-The tool currently runs 3 checks against the target app:
+The tool currently runs 5 checks against the target app:
 
 1. **IDOR (Insecure Direct Object Reference) on shopping baskets.**
    Can a logged-in user view another user's basket just by changing the
@@ -31,6 +31,18 @@ The tool currently runs 3 checks against the target app:
    Does the login endpoint slow down or block rapid repeated attempts
    (as in a password-guessing attack)? It sends a burst of failed login
    attempts and checks whether any get blocked with a 429 status.
+
+4. **Missing security headers.**
+   Does the server send standard browser-level protections, like a
+   Content-Security-Policy header? Missing headers aren't exploitable on
+   their own, but they remove a safety net that limits the damage of other
+   bugs (like XSS) if one is ever found.
+
+5. **Mass assignment (BOPLA) on signup.**
+   Can a brand-new, anonymous user grant themselves admin access just by
+   adding an extra `"role": "admin"` field to a normal registration
+   request? It registers a user with that extra field and checks what
+   role the server actually assigned them.
 
 Each check prints a clear PASS or FAIL, a plain-English reason, and the
 evidence behind it (the actual requests sent and responses received), so
